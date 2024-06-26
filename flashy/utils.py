@@ -51,6 +51,10 @@ def write_and_rename(path: AnyPath, mode: str = "wb", suffix: str = ".tmp", pid=
         tmp_path += f".{os.getpid()}"
     with open(tmp_path, mode) as f:
         yield f
+
+    if os.path.exists(path):
+        os.remove(path)
+        
     os.rename(tmp_path, path)
 
 
